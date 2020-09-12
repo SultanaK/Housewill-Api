@@ -1,0 +1,4 @@
+ALTER TABLE item
+  DROP COLUMN IF EXISTS user_id;
+
+DROP TABLE IF EXISTS housewill_users CASCADE;
