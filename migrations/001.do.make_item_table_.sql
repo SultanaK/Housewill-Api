@@ -7,5 +7,5 @@ CREATE TABLE item (
   modified TIMESTAMPTZ NOT NULL DEFAULT now(),
   description TEXT,
   price decimal(12,2) NOT NULL,
-  category_id INTEGER REFERENCES category(id) ON DELETE CASCADE NOT NULL,
+  category_id INTEGER REFERENCES category(id) ON DELETE CASCADE NOT NULL
 )
