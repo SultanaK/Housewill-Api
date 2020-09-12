@@ -13,7 +13,6 @@
     "predeploy": "npm audit && npm run migrate:production",
     "deploy": "git push heroku master",
     "postdeploy": "npm run migrate:production"
-
   },
   "keywords": [],
   "author": "",
@@ -26,13 +25,13 @@
     "knex": "^0.21.2",
     "morgan": "^1.10.0",
     "pg": "^8.3.0",
+    "postgrator-cli": "^3.2.0",
     "xss": "^1.0.8"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^8.1.1",
     "nodemon": "^2.0.4",
-    "postgrator-cli": "^3.2.0",
     "supertest": "^4.0.2"
   },
   "directories": {
