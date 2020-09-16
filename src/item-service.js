@@ -22,13 +22,13 @@ const ItemsService = {
         return knexInstance
             .from('item')
             .select('*')
-            .where('item_id', id)
+            .where('id', id)
             .first();
     },
 
-    deleteItem(knexInstance, item_id) {
+    deleteItem(knexInstance, id) {
         return knexInstance('item')
-            .where({ item_id })
+            .where({ id })
             .delete();
     },
     updateItem(knexInstance, id, newItemFields) {

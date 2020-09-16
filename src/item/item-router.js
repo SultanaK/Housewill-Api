@@ -6,9 +6,9 @@ const path = require('path')
 const xss = require('xss')
 
 const serializeItem = item => ({
-    item_id: item.id,
+    id: item.id,
     title: xss(item.title),
-    link:item.link,
+    link: item.link,
     modified: item.modified,
     price: item.price,
     category_id: item.category_id,
@@ -25,8 +25,8 @@ itemsRouter
             .catch(next)
     })
     .post(jsonParser, (req, res, next) => {
-        const { title,link,price, category_id, description } = req.body
-        const newItem = { title,link,price, category_id, description }
+        const { title, link, price, category_id, description } = req.body
+        const newItem = { title, link, price, category_id, description }
         for (const [key, value] of Object.entries(newItem)) {
             if (value == null) {
                 return res.status(400).json({
@@ -59,8 +59,8 @@ itemsRouter
                         error: { message: `Item doesn't exist.` }
                     })
                 }
-                res.item = item 
-                next() 
+                res.item = item
+                next()
             })
             .catch(next)
     })
@@ -68,13 +68,13 @@ itemsRouter
     .get((req, res, next) => {
         res.json(serializeItem(res.item))
 
-      
+
     })
     .delete((req, res, next) => {
         ItemService.deleteItem(
             req.app.get('db'),
             req.params.item_id,
-            
+
 
         )
             .then(() => {
@@ -86,8 +86,8 @@ itemsRouter
     .patch(jsonParser, (req, res, next) => {
         const knexInstance = req.app.get('db');
         const updateItemId = res.item.item_id;
-        const { title,link,price, category_id,description,  } = req.body;
-        const updatedItem = { title,link,price, category_id, description  };
+        const { title, link, price, category_id, description, } = req.body;
+        const updatedItem = { title, link, price, category_id, description };
 
         //check that at least one field is getting updated in order to patch
         const numberOfValues = Object.values(updatedItem).filter(Boolean).length

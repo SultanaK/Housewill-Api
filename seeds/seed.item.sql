@@ -2,9 +2,7 @@ INSERT INTO Item (title, link, modified, category_id, description, price) VALUES
        ('Techonology', 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2104&q=80',
       '2019-01-03T00:00:00.000Z',
       3,
-      'Corporis accusamus placeat quas non voluptas. Harum fugit molestias qui. Velit ex animi reiciendis quasi. 
-      Suscipit totam delectus ut voluptas aut qui rerum. Non veniam eius molestiae rerum quam.  
-      Unde qui aperiam praesentium alias. Aut temporibus id quidem recusandae voluptatem ut eum. ',10.34),
+      'Corporis accusamus placeat quas non voluptas. Harum fugit molestias qui. Velit ex animi. ', 10.34),
      
       ('loveseat','https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-1.2.1&auto=format&fit=crop&w=2100&q=80',
       '2018-08-15T23:00:00.000Z',
