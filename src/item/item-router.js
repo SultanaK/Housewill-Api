@@ -47,6 +47,29 @@ itemsRouter
             .catch(next)
     })
 itemsRouter
+    .route('/search')
+    .all((req, res, next) => {
+        const { search } = req.query
+        ItemService.getItemByName(
+            req.app.get('db'),
+            search
+        )
+            .then(item => {
+                if (!item) {
+                    return res.status(404).json({
+                        error: { message: `Item doesn't exist.` }
+                    })
+                }
+                res.item = item
+                next()
+            })
+            .catch(next)
+    })
+    .get((req, res, next) => {
+        res.json(res.item)
+
+    })
+itemsRouter
     .route('/:item_id')
     .all((req, res, next) => {
         ItemService.getItemById(
@@ -64,12 +87,12 @@ itemsRouter
             })
             .catch(next)
     })
-
+    
     .get((req, res, next) => {
         res.json(serializeItem(res.item))
 
-
     })
+
     .delete((req, res, next) => {
         ItemService.deleteItem(
             req.app.get('db'),

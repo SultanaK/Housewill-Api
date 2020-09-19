@@ -25,7 +25,14 @@ const ItemsService = {
             .where('id', id)
             .first();
     },
-
+    getItemByName(knexInstance, searchTerm) {
+        return knexInstance
+            .from('item')
+            .select('*')
+            .where('title', 'ILIKE', `%${searchTerm}%`)
+            
+        
+    },
     deleteItem(knexInstance, id) {
         return knexInstance('item')
             .where({ id })
