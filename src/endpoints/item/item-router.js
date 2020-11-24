@@ -1,5 +1,6 @@
 const express = require('express')
-const ItemService = require('../item-service')
+const ItemService = require('./item-service')
+const { requireAuth } = require('../../middleware/jwt-auth');
 const itemsRouter = express.Router()
 const jsonParser = express.json()
 const path = require('path')
@@ -8,10 +9,10 @@ const xss = require('xss')
 const serializeItem = item => ({
     id: item.id,
     title: xss(item.title),
-    link: item.link,
+    link: xss(item.link),
     modified: item.modified,
-    price: item.price,
-    email:item.email,
+    price: xss(item.price),
+    email: xss(item.email),
     category_id: item.category_id,
     description: xss(item.description),
 })
@@ -25,11 +26,12 @@ itemsRouter
             })
             .catch(next)
     })
-    .post(jsonParser, (req, res, next) => {
-        const { title, link, price, category_id, description,email } = req.body
-        const newItem = { title, link, price, email,category_id, description }
+    .post(requireAuth,jsonParser, (req, res, next) => {
+        const { title, link, price, email,category_id, description } = req.body
+        const newItem = { title, link, price, email, category_id, description }
         for (const [key, value] of Object.entries(newItem)) {
-            if (value == null) {
+            if (!value) {
+                console.log(key)
                 return res.status(400).json({
                     error: { message: `Missing '${key}' in request body` }
                 })
@@ -42,7 +44,7 @@ itemsRouter
             .then(item => {
                 res
                     .status(201)
-                    .location(path.posix.join(req.originalUrl, `/${item.item_id}`))
+                    .location(path.posix.join(req.originalUrl, `/${item.id}`))
                     .json(serializeItem(item))
             })
             .catch(next)
@@ -72,6 +74,7 @@ itemsRouter
     })
 itemsRouter
     .route('/:item_id')
+    .all(checkItemExists)
     .all((req, res, next) => {
         ItemService.getItemById(
             req.app.get('db'),
@@ -94,10 +97,11 @@ itemsRouter
 
     })
 
-    .delete((req, res, next) => {
+    .delete( (req, res, next) => {
         ItemService.deleteItem(
             req.app.get('db'),
             req.params.item_id,
+           /*  req.params.user_id, */
 
 
         )
@@ -107,11 +111,12 @@ itemsRouter
             .catch(next)
 
     })
-    .patch(jsonParser, (req, res, next) => {
+    .patch(requireAuth, jsonParser, (req, res, next) => {
         const knexInstance = req.app.get('db');
-        const updateItemId = res.item.item_id;
-        const { title, link, price, email, category_id, description, } = req.body;
-        const updatedItem = { title, link, price, email, category_id, description };
+        const updateItemId = res.item.id;
+        /* const user_id = req.user.user_id */
+        const { title, link, price, category_id, description, } = req.body;
+        const updatedItem = { title, link, price, category_id, description };
 
         //check that at least one field is getting updated in order to patch
         const numberOfValues = Object.values(updatedItem).filter(Boolean).length
@@ -121,11 +126,36 @@ itemsRouter
             });
         }
 
-        updatedItem.date_modified = new Date();
+        /* updatedItem.date_modified = new Date(); */
 
-        ItemsService.updateItem(knexInstance, updateItemId, updatedItem)
-            .then(() => res.status(204).end())
-            .catch(next);
+        /* ItemService.updateItem(knexInstance, user_id, updateItemId, updatedItem) */
+        ItemService.updateItem(knexInstance, updateItemId, updatedItem)
+           .then((item) => {
+				res
+					.status(201)
+					.location(path.posix.join(req.originalUrl, `/${item.id}`))
+					.json(ItemsService.serializeItem(item));
+			})
+			.catch(next); 
+            
     });
+async function checkItemExists(req, res, next) {
+	try {
+		const item = await ItemsService.getByItemId(
+			req.app.get('db'),
+			req.params.id
+		);
+
+		if (!item)
+			return res.status(404).json({
+				error: `Item doesn't exist`,
+			});
+
+		res.item = item;
+		next();
+	} catch (error) {
+		next(error);
+	}
+}
 
 module.exports = itemsRouter
