@@ -1,7 +1,7 @@
 {
   "name": "housewill-api",
   "version": "1.0.0",
-  "description": "Noteful lets users manage and organize their notes, which are stored on an external server. This repo provides that server. (app can be found here: )",
+  "description": "Housewill lets users manage and organize their items, which are stored on an external server. This repo provides that server. (app can be found here: )",
   "main": "index.js",
   "scripts": {
     "test": "mocha --require test/setup.js",

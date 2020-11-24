@@ -1,6 +1,6 @@
 # Housewill Server!
 
-Housewill lets users manage and organize their notes, which are stored on an external server. This repo provides that server. (app can be found here: )
+Housewill lets users manage and organize their items, which are stored on an external server. This repo provides that server. (app can be found here: )
 
 # Live link 
 [Items](https://ancient-coast-06937.herokuapp.com/api/items)

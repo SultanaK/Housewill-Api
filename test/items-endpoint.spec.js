@@ -155,7 +155,6 @@ describe('Items Endpoints', function() {
 				.expect(201)
 				.expect((res) => {
 					expect(res.body.title).to.eql(newItem.title);
-					// expect(res.body.modified).to.eql(newNote.modified)
 					expect(res.body.category_id).to.eql(newItem.category_id);
 					expect(res.body.description).to.eql(newItem.description);
 					expect(res.body.email).to.eql(newItem.email);
@@ -185,9 +184,9 @@ describe('Items Endpoints', function() {
 
 		requiredFields.forEach((field) => {
 			const newItem = {
-				title: 'Test new note',
+				title: 'Test new item',
 				category_id: 1,
-				description: 'Test new note content...',
+				description: 'Test new item content...',
 				price: '3',
 				link: 'Test-link',
 				email: 'email@email.com',
@@ -243,17 +242,7 @@ describe(`DELETE /api/items/:item_id`, () => {
 			});
 			app.set('db', db);
 		});
-		/*  beforeEach('clean the table', () => db.raw('TRUNCATE note, folder RESTART IDENTITY CASCADE'));
-        beforeEach('insert folders and notes', () => {
-            return db
-                .into('folder')
-                .insert(testFolders)
-                .then(() => {
-                    return db
-                        .into('note')
-                        .insert(testNotes)
-                })
-        }) */
+		
 		it('responds with 204 and removes the item', () => {
 			beforeEach('clean the table', () =>
 				db.raw('TRUNCATE item, category RESTART IDENTITY CASCADE')
