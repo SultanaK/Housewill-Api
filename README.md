@@ -1,33 +1,106 @@
-# Housewill Server!
+# Housewill
 
-Housewill lets users manage and organize their items, which are stored on an external server. This repo provides that server. (app can be found here: )
+This application is made for users who want to sell their gently used household item and want to make a listing for the community to keep an eye out. Users are able to create and post item. They can view other listings items and for others to see. 
 
-# Live link 
-[Items](https://ancient-coast-06937.herokuapp.com/api/items)
-[Category](https://ancient-coast-06937.herokuapp.com/api/categorys)
+## How to get started?
 
-## Built with
-  Node, Express, Chai, Supertest
+Simple! You start by searching item of your choice and by find item by category. It's not complicated at all. You can then go to the item page and find items and contact seller or make your own listing by adding new item by clicking "ADD NEW ITEM". This site was made for all people of all ages.
 
-## Setup
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+# Features
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
-2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "housewill-server",`
+- Create a new posting
+- Search item from existing item
+- Delete any item
+- Communicate seller for for details information
+- Preview the item
+- Save the Item 
 
-## Scripts
+## Technology
 
-Start the application `npm start`
+- Front-End: HTML5, CSS3, JavaScript ES6, React
+- Back-End: Node.js, Express.js, Mocha, Chai, RESTful API Endpoints, Postgres
+- Production Environment: Heroku, Vercel
 
-Start nodemon for the application `npm run dev`
+## Working Prototype
 
-Run the tests `npm test`
+You can access a working prototype of the:
 
-## Deploying
+  React(Client) app here:  
+    https://housewill-client.vercel.app/  
+    
+  Node/Express(Server) API here:  
+    https://github.com/SultanaK/Housewill-Api 
 
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's master branch.
+## User Stories
+
+This app is for types of users: a REGISTERED USER and an UNREGISTERED USER
+
+
+
+
+## Screenshots
+
+Landing Page
+:-------------------------:
+![Landing Page](./documentation/screenshots/home.png)
+
+Category page
+:-------------------------:
+![Category Page](./documentation/screenshots/category.png)
+
+Search Page
+:-------------------------:
+![Search Page](./documentation/screenshots/search.png)
+
+Item Page  
+:-------------------------:
+![Edit Item Page](./documentation/screenshots/item.png)
+
+Add new Item
+:-------------------------:
+![User Dashboard Page](./documentation/screenshots/add-new.png)
+
+
+
+
+API Documentation:
+
+Link: https://github.com/SultanaK/Housewill-Api
+
+POST Features: - '/add-item' is made for users to add new item - 
+
+GET Features: - '/items/:item_id' accesses the specific logged in users profile - '/items' displays all the items - '/pups/:id' shows a personal page of the specific item - '/items/:item_id ^^^
+
+DELETE Feauture: - '/items/:item_id' deletes a certain pup listing
+
+
+## Responsive
+
+App is built to be usable on mobile devices, as well as responsive across mobile, tablet, laptop, and desktop screen resolutions.
+
+## Development Roadmap
+
+This is v1.0 of the app, but future enhancements are expected to include:
+
+-  enable users to view and create post
+-  a marketplace to see other posting
+
+## How to run it
+
+Use command line to navigate into the project folder and run the following in terminal
+
+### Local Server/Node scripts
+
+- clone repo https://github.com/SultanaK/Housewill-Api
+- To install the node project ===> npm install
+- To migrate the database ===> npm run migrate -- 1
+- To run Node server (on port 8000) ===> npm run dev
+- To run tests ===> npm run test
+
+### Local Client/React scripts
+
+- clone repo https://github.com/SultanaK/Housefull-client
+- To install the react project ===> npm install
+- To run react (on port 3000) ===> npm start
+- To run tests ===> npm run test
